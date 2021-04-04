@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.simple_tag
 def build_chat_room_name(username1, username2):
-    return '-'.join(sorted([username1, username2]))
+    return '-'.join(sorted([username1 or '', username2 or '']))
 
 
 @register.simple_tag

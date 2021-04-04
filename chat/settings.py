@@ -122,7 +122,7 @@ LOGIN_URL = 'login'
 
 LOGOUT_REDIRECT_URL = 'login'
 
-
+AUTH_USER_MODEL = 'chat.User'
 # Channels
 
 CHANNEL_LAYERS = {

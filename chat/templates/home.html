@@ -20,13 +20,26 @@
             <button class="btn btn-primary" type="button">{{ user.username }} ({{ user.email }})</button>
             <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Sign out</a>
         </div>
-        <h3>Users</h3>
-        <div class="list-group">
-            {% for user_dict in users %}
-            <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action">{{ user_dict.username }}</a>
-            {% empty %}
-            <p class="text-muted">Ups! no users to chat with.</p>
-            {% endfor %}
+
+        <div class="mb-4">
+            <h3>Students</h3>
+            <div class="list-group">
+                {% for user_dict in students %}
+                <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action">{{ user_dict.username }} ({{ user_dict.email }})</a>
+                {% empty %}
+                <p class="text-muted">Ups! no users to chat with.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="mb-4">
+            <h3>Teachers</h3>
+            <div class="list-group">
+                {% for user_dict in teachers %}
+                <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action">{{ user_dict.username }} ({{ user_dict.email }})</a>
+                {% empty %}
+                <p class="text-muted">Ups! no users to chat with.</p>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
