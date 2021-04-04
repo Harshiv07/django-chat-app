@@ -2,10 +2,10 @@
 __pycache__/
 *.py[cod]
 *.egg-info
-*.sqlite3
 *.ropeproject
 *.log
 *.pid
 *.sock
 *.socket
 *.venv
+**/migrations/*
