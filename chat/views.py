@@ -1,13 +1,48 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
+from .models import User
 from django.db.models import F, Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic.base import TemplateView
-
+from django.contrib.auth import views as auth_views
+from django.views.generic.edit import FormView
+from . import forms
 from chat.models import Message
+from django.contrib.auth import login, authenticate, logout
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 
+def Logout(request):
+    """logout logged in user"""
+    logout(request)
+    return HttpResponseRedirect(reverse_lazy('home'))
+
+
+class LoginView(FormView):
+    """login view"""
+
+    form_class = forms.LoginForm
+    success_url = reverse_lazy('home')
+    template_name = 'registration/login.html'
+
+    def form_valid(self, form):
+        """ process user login"""
+        credentials = form.cleaned_data
+        print(credentials['email'])
+        print(credentials['password'])
+        user = authenticate(username=credentials['email'],
+                            password=credentials['password'])
+        print(user)
+        if user is not None:
+            login(self.request, user)
+            return HttpResponseRedirect(self.success_url)
+
+        else:
+            messages.add_message(self.request, messages.INFO, 'Wrong credentials\
+                                please try again')
+            return HttpResponseRedirect(reverse_lazy('login'))
 
 class HomeView(LoginRequiredMixin, TemplateView):
 
@@ -16,6 +51,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # List all users for chatting. Except myself.
+        print(self.request.user.username)
         context['users'] = User.objects.exclude(id=self.request.user.id)\
                                        .values('username')
         return context

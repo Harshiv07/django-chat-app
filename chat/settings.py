@@ -1,5 +1,3 @@
-import os
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from pathlib import Path
@@ -18,7 +16,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+    )
 # Application definition
 
 INSTALLED_APPS = [
@@ -122,7 +122,7 @@ LOGIN_URL = 'login'
 
 LOGOUT_REDIRECT_URL = 'login'
 
-
+AUTH_USER_MODEL = 'chat.User'
 # Channels
 
 CHANNEL_LAYERS = {

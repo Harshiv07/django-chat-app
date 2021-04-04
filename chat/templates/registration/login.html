@@ -27,20 +27,32 @@
 {% endblock %}
 
 {% block content %}
-
-<form class="form-signin" method="post" action="{% url 'login' %}">
+{% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
+  </ul>
+{% endif %}
+  <form class="" action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="signup" value="Login">
+  </form>
+<!-- <form class="form-signin" method="post" action="{% url 'login' %}">
   {% csrf_token %}
   <h1 class="h2 mb-3 font-weight-normal">Please sign in</h1>
   {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
-  <label for="inputEmail" class="sr-only">{{ form.username.label_tag }}</label>
-  <input id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" type="text" class="form-control" placeholder="Username" required autofocus>
+  
+  <label for="inputEmail" class="sr-only">{{ form.email.label_tag }}</label>
+  <input id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" type="text" class="form-control" placeholder="Email" required autofocus>
   <label for="inputPassword" class="sr-only">{{ form.password.label_tag }}</label>
   <input id="{{ form.password.id_for_label }}" name="{{ form.password.name }}" type="password" class="form-control mt-2" placeholder="Password" required>
   <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Enter</button>
   <input type="hidden" name="next" value="{{ next }}">
-  <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
-</form>
+  <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form> -->
 
 {% endblock %}

@@ -17,7 +17,7 @@
     <h1 class="font-weight-bold">Chat</h1>
     <div class="card card-body mx-auto text-left">
         <div class="btn-group btn-block mb-4" role="group">
-            <button class="btn btn-primary" type="button">{{ user.username }} ({{ user.email }})</button>
+            <button class="btn btn-primary" type="button">Username: {{ user.username }}</button>
             <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Sign out</a>
         </div>
         <h3>Users</h3>
