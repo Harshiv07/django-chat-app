@@ -42,7 +42,7 @@
 <div class="container">
     <h1 class="font-weight-bold">Chat</h1>
     <div class="card card-body mx-auto text-left">
-        <h3>To: {{ receiver.username }} ({{ receiver.email }}) <a class="btn btn-danger float-right" href="{% url 'home' %}" role="button">Exit</a></h3>
+        <h3>To: {{ receiver.first_name }} {{ receiver.last_name }} ({{ receiver.email }}) <a class="btn btn-danger float-right" href="{% url 'home' %}" role="button">Exit</a></h3>
         <div id="chat-messages" class="card card-body card-chat text-left">
         </div>
         <div class="mt-2">
@@ -62,7 +62,7 @@
                 $("#chat-messages").append("<div class='message-left'><b style='padding-left:10px;'>" + data['username'] + "</b> <p class='message-content'>" + data['message'] + "</p><p style='padding-left:10px;'>" + current_date.getHours()+":" + current_date.getMinutes() + "</p></div><br>");
             }
             else {
-                $("#chat-messages").append("<div class='message-right'><b style='padding-right:10px;'>" + data['username'] + "</b> <p class='message-content'>" + data['message'] + "</p><p style='padding-right:10px;'>" + current_date.getHours()+":" + current_date.getMinutes() + "</p></div><br>");
+                $("#chat-messages").append("<div class='message-right'><b style='padding-right:10px;'>" + "You" + "</b> <p class='message-content'>" + data['message'] + "</p><p style='padding-right:10px;'>" + current_date.getHours()+":" + current_date.getMinutes() + "</p></div><br>");
             }
             
         };

@@ -6,9 +6,10 @@
 {% block head %}
 <style media="screen">
     .container .card { max-width:800px }
-    .chat-box { position: absolute; bottom: 20px; right: 20px; width: 250px; background-color: lightgray; border: 1px solid black; border-radius: 5px;}
+    .chat-box { position: absolute; bottom: 20px; right: 20px; width: 300px; background-color: lightgray; border: 1px solid black; border-radius: 5px;}
     .chat-box .dropdown-toggle:after { content: none }
-    .user-list-container { padding: 0; }
+    /* .chat-box .chat-button { width: 150px;} */
+    .user-list-container { padding: 0; width: 300px;}
     .user-type-heading { font-weight: bold; font-size: 20px; padding: 10px; box-sizing: border-box; background-color:lightgray; }
     .user-container { background-color: whitesmoke; font-size: 16px;}
 </style>
@@ -25,7 +26,7 @@
         </div>
     </div>
     <div class="btn-group dropup chat-box">
-        <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-default btn-lg dropdown-toggle chat-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="caret">Chat <i class="bi bi-chat"></i></span>
         </button>
         <ul class="dropdown-menu user-list-container">
@@ -51,10 +52,11 @@
             </div>
         </ul>
       </div>
-    <!-- <div style="position: absolute; bottom: 0; right: 0"> -->
-        
-
-    <!-- </div> -->
+      <script>
+        $(document).ready(function(){
+            $('.chat-box .show').width('300px');
+        });
+      </script>
 </div>
 
 {% endblock %}
