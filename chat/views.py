@@ -32,12 +32,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
                     students_list = list(ClassesDetails.objects.filter(~Q(student=self.request.user.email)).filter(class_id = obj.class_id, section= obj.section))
                     for s in students_list:
                         print("student: " + s.student)
-                        context['students'].append({'username': get_object_or_404(User, email=s.student).username, 'email': s.student})
+                        u = get_object_or_404(User, email=s.student)
+                        context['students'].append({'username': u.username, 'email': s.student, 'firstname': u.first_name, 'lastname': u.last_name})
 
                     teachers_list = list(SubjectClassTeacherDetails.objects.filter(classid = obj.class_id, section= obj.section))
                     for t in teachers_list:
                         print("teacher: " + t.teacher)
-                        context['teachers'].append({'username': get_object_or_404(User, email=t.teacher).username, 'email': t.teacher})
+                        u = get_object_or_404(User, email=t.teacher)
+                        context['teachers'].append({'username': u.username, 'email': t.teacher, 'firstname': u.first_name, 'lastname': u.last_name})
                     
                 except:
                     pass
@@ -50,12 +52,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
                         students_list = list(ClassesDetails.objects.filter(class_id = c.classid, section= c.section))
                         for s in students_list:
                             print("student: " + s.student)
-                            context['students'].append({'username': get_object_or_404(User, email=s.student).username, 'email': s.student})
+                            u = get_object_or_404(User, email=s.student)
+                            context['students'].append({'username': u.username, 'email': s.student, 'firstname': u.first_name, 'lastname': u.last_name})
 
                         teachers_list = list(SubjectClassTeacherDetails.objects.filter(~Q(student=self.request.user.email)).filter(classid = c.classid, section= c.section))
                         for t in teachers_list:
                             print("teacher: " + t.teacher)
-                            context['teachers'].append({'username': get_object_or_404(User, email=t.teacher).username, 'email': t.teacher})
+                            u = get_object_or_404(User, email=t.teacher)
+                            context['teachers'].append({'username': u.username, 'email': t.teacher, 'firstname': u.first_name, 'lastname': u.last_name})
                     
                     except:
                         pass
@@ -67,12 +71,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
                     students_list = list(BatchDetails.objects.filter(~Q(student=self.request.user.email)).filter(batch_id = obj.batch_id))
                     for s in students_list:
                         print("student: " + s.student)
-                        context['students'].append({'username': get_object_or_404(User, email=s.student).username, 'email': s.student})
+                        u = get_object_or_404(User, email=s.student)
+                        context['students'].append({'username': u.username, 'email': s.student, 'firstname': u.first_name, 'lastname': u.last_name})
 
                     teachers_list = list(SubjectBatchTeacherDetails.objects.filter(batchid = obj.batch_id))
                     for t in teachers_list:
                         print("teacher: " + t.teacher)
-                        context['teachers'].append({'username': get_object_or_404(User, email=t.teacher).username, 'email': t.teacher})
+                        u = get_object_or_404(User, email=t.teacher)
+                        context['teachers'].append({'username': u.username, 'email': t.teacher, 'firstname': u.first_name, 'lastname': u.last_name})
                     
                 except:
                     pass
@@ -84,12 +90,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
                         students_list = list(BatchDetails.objects.filter(~Q(student=self.request.user.email)).filter(batch_id = b.batchid))
                         for s in students_list:
                             print("student: " + s.student)
-                            context['students'].append({'username': get_object_or_404(User, email=s.student).username, 'email': s.student})
+                            u = get_object_or_404(User, email=s.student)
+                            context['students'].append({'username': u.username, 'email': s.student, 'firstname': u.first_name, 'lastname': u.last_name})
 
                         teachers_list = list(SubjectBatchTeacherDetails.objects.filter(batchid = b.batchid))
                         for t in teachers_list:
                             print("teacher: " + t.teacher)
-                            context['teachers'].append({'username': get_object_or_404(User, email=t.teacher).username, 'email': t.teacher})
+                            u = get_object_or_404(User, email=t.teacher)
+                            context['teachers'].append({'username': u.username, 'email': t.teacher, 'firstname': u.first_name, 'lastname': u.last_name})
                     except:
                         pass
         

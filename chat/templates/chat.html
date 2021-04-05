@@ -15,6 +15,25 @@
     .card-chat p {
         margin-bottom: 0;
     }
+    .message-left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .message-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .message-content {
+        background-color: lightgray	;
+        color: black;
+        /* font-weight: 600; */
+        border: 1px solid white;
+        border-radius: 25px;
+        padding: 10px 15px;
+        box-sizing: border-box;
+    }
 </style>
 {% endblock %}
 
@@ -26,20 +45,33 @@
         <h3>To: {{ receiver.username }} ({{ receiver.email }}) <a class="btn btn-danger float-right" href="{% url 'home' %}" role="button">Exit</a></h3>
         <div id="chat-messages" class="card card-body card-chat text-left">
         </div>
-        <input id="message" class="form-control mt-2 d-none" type="text" placeholder="Type your message...">
-        <button id="send-message" class="btn btn-primary float-right mt-2 d-none">Send</button>
+        <div class="mt-2">
+            <input id="message" class="form-control d-inline-block d-none" type="text" placeholder="Type your message..." style="width: 90%;">
+            <button id="send-message" class="btn btn-primary float-right d-inline-block d-none">Send</button>
+        </div>
+
     </div>
 </div>
 
 <script type="text/javascript">
     $(function() {
         function addMessageToChat(data) {
-            $("#chat-messages").append("<b>" + data['username'] + ":</b> <p>" + data['message'] + "</p><br>");
+            var current_date = new Date(data['date_created'] || Date.now());
+            
+            if (data['username'] === '{{receiver.username}}') {
+                $("#chat-messages").append("<div class='message-left'><b style='padding-left:10px;'>" + data['username'] + "</b> <p class='message-content'>" + data['message'] + "</p><p style='padding-left:10px;'>" + current_date.getHours()+":" + current_date.getMinutes() + "</p></div><br>");
+            }
+            else {
+                $("#chat-messages").append("<div class='message-right'><b style='padding-right:10px;'>" + data['username'] + "</b> <p class='message-content'>" + data['message'] + "</p><p style='padding-right:10px;'>" + current_date.getHours()+":" + current_date.getMinutes() + "</p></div><br>");
+            }
+            
         };
 
         $.getJSON("{% url 'messages' request.resolver_match.kwargs.chatname %}", function(data) {
             // Add each previous message to the chat.
             $.each(data, function(index, value) {
+                console.log(value);
+                console.log('{{receiver.username}}');
                 addMessageToChat(value);
             });
             // Show the message input and the send button. Now you can write!

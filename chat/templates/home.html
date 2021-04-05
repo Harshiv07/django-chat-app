@@ -5,9 +5,12 @@
 
 {% block head %}
 <style media="screen">
-    .container .card {
-        max-width:800px
-    }
+    .container .card { max-width:800px }
+    .chat-box { position: absolute; bottom: 20px; right: 20px; width: 250px; background-color: lightgray; border: 1px solid black; border-radius: 5px;}
+    .chat-box .dropdown-toggle:after { content: none }
+    .user-list-container { padding: 0; }
+    .user-type-heading { font-weight: bold; font-size: 20px; padding: 10px; box-sizing: border-box; background-color:lightgray; }
+    .user-container { background-color: whitesmoke; font-size: 16px;}
 </style>
 {% endblock %}
 
@@ -20,28 +23,38 @@
             <button class="btn btn-primary" type="button">{{ user.username }} ({{ user.email }})</button>
             <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Sign out</a>
         </div>
-
-        <div class="mb-4">
-            <h3>Students</h3>
-            <div class="list-group">
-                {% for user_dict in students %}
-                <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action">{{ user_dict.username }} ({{ user_dict.email }})</a>
-                {% empty %}
-                <p class="text-muted">Ups! no users to chat with.</p>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="mb-4">
-            <h3>Teachers</h3>
-            <div class="list-group">
-                {% for user_dict in teachers %}
-                <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action">{{ user_dict.username }} ({{ user_dict.email }})</a>
-                {% empty %}
-                <p class="text-muted">Ups! no users to chat with.</p>
-                {% endfor %}
-            </div>
-        </div>
     </div>
+    <div class="btn-group dropup chat-box">
+        <button class="btn btn-default btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="caret">Chat <i class="bi bi-chat"></i></span>
+        </button>
+        <ul class="dropdown-menu user-list-container">
+            <div>
+                <div class="user-type-heading">Students</div>
+                <div class="list-group">
+                    {% for user_dict in students %}
+                    <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action user-container"><i class="bi bi-person-circle"></i> {{user_dict.firstname}} {{user_dict.lastname}} ({{ user_dict.username }}) </a>
+                    {% empty %}
+                    <div class="list-group-item list-group-item-action user-container">Oops! no users to chat with.</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <div class="user-type-heading">Teachers</div>
+                <div class="list-group">
+                    {% for user_dict in teachers %}
+                    <a href="{% build_chat_url user.username user_dict.username %}" class="list-group-item list-group-item-action user-container"><i class="bi bi-person-circle"></i> {{user_dict.firstname}} {{user_dict.lastname}} ({{ user_dict.username }})</a>
+                    {% empty %}
+                    <div class="list-group-item list-group-item-action user-container">Oops! no users to chat with.</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </ul>
+      </div>
+    <!-- <div style="position: absolute; bottom: 0; right: 0"> -->
+        
+
+    <!-- </div> -->
 </div>
 
 {% endblock %}
