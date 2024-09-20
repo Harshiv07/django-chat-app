@@ -2,4 +2,3 @@ setuptools-rust
 channels==2.3
 channels_redis==2.4
 django==3.2.25
-
