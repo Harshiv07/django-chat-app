@@ -1,5 +1,4 @@
 setuptools-rust
 channels==2.3
 channels_redis==2.4
-django==2.2.24
-
+Django>=3.2.15
